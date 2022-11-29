@@ -1,3 +1,4 @@
+-- Creating database on server
 CREATE DATABASE music_db
     WITH
     OWNER = postgres
