@@ -82,6 +82,29 @@ Our service runs on nginx that has the following configuration to expose the app
 
 ### Restarting the backend service
 
-The backend service is spun up by systemd. If a member of the team irreparably, either through github actions and CI or by manually uploading a broken musicapp.py file we will need to manually restart the service. I am working on a mechenism for that that will be uploaded in a few hours.
+The backend service is spun up by systemd. If a member of the team irreparably, either through github actions and CI or by manually uploading a broken musicapp.py file we will need to manually restart the service.
+
+To accomplish this we are setting up another microservice who's purpose is to restart our main app if it goes into a permanently failed state.
+
+We are setting this up very similarly to our musicapp.py except we are setting up a simple restart command
+
+```
+from flask import Flask, render_template, request, redirect
+
+app = Flask(__name__)
+@app.route('/')
+def index():
+    return render_template('page.html')
+
+@app.route('/process',  methods=["GET", "POST"])
+def process():
+    # The code here has been obscured
+
+app.run(host='0.0.0.0', port=<port>)
+
+
+```
+
+The microservice takes a command and will issue a restart request to the systemd through the call function. While there is a dbus library, it doesn't currently work with the enviroment available to it.
 
 
