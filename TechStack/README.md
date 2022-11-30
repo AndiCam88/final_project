@@ -30,10 +30,58 @@ The server is hosted with an infrastructure as a service cloud provider. Close e
 
 ### Backend Processing
 
-TODO: Spin up a flask app that can be accessed from an endpoint on our server
+We have setup a simple service that runs a flask app on a posix server. While its not entirely certain that it is needed at this time, having the groundwork done could come in handly later.
 
-TODO: Setup SFTP and FTPS access to the location on the server that the flask app is running
+#### SFTP Access
 
-TODO: Potentially register a unique domain name
+We have setup SFTP access for the users from the group. 
 
-TODO: Setup a restart service script that will reload the flask app
+### App service
+
+In the root file is a simple flask app named musicapp.py. This has its own venv that is activated and ran through a systemd process with the following service script.
+
+```
+[Unit]
+Description=Music Project Webapp Backend
+After=network.target
+
+[Service]
+Type=simple
+User=<username>
+Restart=always
+ExecStart=<python3 env python> /home/<username>/musicapp.py start
+
+[Install]
+WantedBy=multi-user.target
+```
+
+The code for the app can be found above at [musicapp.py](musicapp.py)
+
+### Exposing the API/Backend
+
+Our service runs on nginx that has the following configuration to expose the app
+
+```
+# MusicGroup Backend 
+    location /MusicGroup/ {
+        proxy_pass         http://127.0.0.1:<port>/;
+        proxy_set_header   Host             $host;
+        proxy_set_header   X-Real-IP        $remote_addr;
+        proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+        client_max_body_size       10m;
+        client_body_buffer_size    128k;
+        proxy_connect_timeout      90;
+        proxy_send_timeout         90;
+        proxy_read_timeout         90;
+        proxy_buffer_size          4k;
+        proxy_buffers              4 32k;
+        proxy_busy_buffers_size    64k;
+        proxy_temp_file_write_size 64k;
+    }
+```
+
+### Restarting the backend service
+
+The backend service is spun up by systemd. If a member of the team irreparably, either through github actions and CI or by manually uploading a broken musicapp.py file we will need to manually restart the service. I am working on a mechenism for that that will be uploaded in a few hours.
+
+
