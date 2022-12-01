@@ -1,5 +1,5 @@
 # Ignore Resources folder as .csv files are too large
-Resources/
+Resources_Full/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
