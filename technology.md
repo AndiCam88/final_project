@@ -55,7 +55,7 @@ ExecStart=<python3 env python> /home/<username>/musicapp.py start
 WantedBy=multi-user.target
 ```
 
-The code for the app can be found above at [musicapp.py](musicapp.py)
+The code for the app can be found above at [Backend/musicapp.py](Backend/musicapp.py)
 
 ### Exposing the API/Backend
 
