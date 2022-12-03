@@ -33,8 +33,8 @@ select * from spotify_partial
 -- Creating table to hold Spotify export
 CREATE TABLE spotify_full (
 	id VARCHAR(22) NOT NULL,
-	name VARCHAR(250) NOT NULL,
-    album VARCHAR(250) null,
+	name VARCHAR(1000) NOT NULL,
+    album VARCHAR(1000) null,
     album_id VARCHAR(22) null,
     artists VARCHAR(1500) null,
     artist_ids VARCHAR(1500) null,
@@ -61,3 +61,29 @@ CREATE TABLE spotify_full (
 );
 
 select * from spotify_full
+
+
+-- Creating table to hold Spotify track info
+select id, name, artists
+into spotify_track_info
+from spotify_full
+
+select * from spotify_track_info
+
+-- Creating table to hold Spotify features
+select id, 
+	danceability,
+    energy,
+    key,
+    loudness,
+    mode,
+    speechiness,
+    acousticness,
+    instrumentalness,
+    liveness,
+    valence,
+    tempo
+into spotify_features
+from spotify_full
+
+select * from spotify_features
