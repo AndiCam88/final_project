@@ -27,9 +27,9 @@ As connoisseurs of the music industry, we recognize the vast range of emotional 
 ### Technologies, Languages, Tools, and Algorithms Used
 
 - Data Storage: GitHub
-- Data Analysis: 
-- Database Management: postgreSQL
-- Visualizations:
+- Data Analysis: Jupyter Notebook, Python
+- Database Management: postgreSQL, Python, VSCode, SQL Alchemy, Quick DBD for ERD development
+- Visualizations: Google Slides
 
 ### Communication Plan
 
