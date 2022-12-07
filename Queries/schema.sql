@@ -74,13 +74,7 @@ select * from spotify_track_info
 select id, 
 	danceability,
     energy,
-    key,
     loudness,
-    mode,
-    speechiness,
-    acousticness,
-    instrumentalness,
-    liveness,
     valence,
     tempo
 into spotify_features
