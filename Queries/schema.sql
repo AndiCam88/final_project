@@ -64,7 +64,9 @@ select * from spotify_full
 
 
 -- Creating table to hold Spotify track info
-select id, name, artists
+select id, 
+    name, 
+    artists
 into spotify_track_info
 from spotify_full
 
