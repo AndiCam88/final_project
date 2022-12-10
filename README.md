@@ -7,6 +7,10 @@ By: Devin Monsen, Andi Cameron, Zach Ellsworth, and Jamee Jenkins
 
 Music can greatly alter the mood of the listener. It can help hype up a crowd at a party or soothe as you wait on hold or in an elevator. Music triggers emotional responses whether positive or negative. 
 
+## Project Visualizations
+
+- Google Slides Presentation: *(https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2FAndiCam88%2Ffinal_project%2Fmain%2FFinal%2520Project.pptx&wdOrigin=BROWSELINK)*
+
 ## Project Overview
 
 ### Purpose
@@ -16,7 +20,7 @@ As connoisseurs of the music industry, we recognize the vast range of emotional 
 ### Source Data 
 
 - Kaggle: Spotify 1.2M+ Songs with track features obtained through the Spotify API
-(https://www.kaggle.com/datasets/rodolfofigueroa/spotify-12m-songs)
+*(https://www.kaggle.com/datasets/rodolfofigueroa/spotify-12m-songs)*
 
 ### Questions to Analyze
 
@@ -30,12 +34,6 @@ As connoisseurs of the music industry, we recognize the vast range of emotional 
 - Data Analysis: Jupyter Notebook, Python
 - Database Management: postgreSQL, Python, VSCode, SQL Alchemy, Quick DBD for ERD development
 - Visualizations: Google Slides
-
-### Communication Plan
-
-- Communication platforms include: GitHub, Slack, Zoom, and Text Message
-
-The final project began on November 21, 2022. The team met during weekly class time to discuss updates, actively collaborate, and problem solve. The group exchanged personal phone numbers for contact outside class or Slack.
 
 ## Data Exploration
 
