@@ -31,9 +31,11 @@ As connoisseurs of the music industry, we recognize the vast range of emotional 
 ### Technologies, Languages, Tools, and Algorithms Used
 
 - Data Storage: GitHub
+- Data Preprocessing: Python, pgAdmin/postgreSQL
 - Data Analysis: Jupyter Notebook, Python
-- Database Management: postgreSQL, Python, VSCode, SQL Alchemy, Quick DBD for ERD development
-- Visualizations: Google Slides
+- Database Management: pgAdmin/postgreSQL, Python, VSCode, SQL Alchemy, Quick DBD for ERD development
+- Visualizations: Google Slides, Javascript, Flask, Python, VSCode
+- Requirements.txt: Shows all packages and libraries used throughout the project
 
 ## Data Exploration
 
