@@ -1,6 +1,9 @@
 # Ignore Resources folder as .csv files are too large
 Resources_Full/
 
+# Ignore Mac files
+.DS_Store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
