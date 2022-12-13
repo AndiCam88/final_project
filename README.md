@@ -50,9 +50,10 @@ Those features are:
 - Valence: The higher the value, the more positive mood of the song
 - Tempo: The higher the value, the faster the song is played
 - Danceability: The higher the value, the easier it is to dance to the song
+- Acousticness: A higher value would indicate acoustic instruments and a lower value would indicate electronic instruments 
 
 #### *Attribute Table Snapshot*
-![spotify_features](https://user-images.githubusercontent.com/108373151/206340361-34fdfbe6-ed82-47fc-8793-7f19215f8509.jpg)
+![spotify_features_new](https://user-images.githubusercontent.com/108373151/207215024-af0a4589-8572-4a50-8800-d0f59636a9b5.jpg)
 
 #### *Track Info Table Snapshot*
 ![spotify_track_info](https://user-images.githubusercontent.com/108373151/206340328-39d39290-fefe-4725-84a2-25218ec1a449.jpg)

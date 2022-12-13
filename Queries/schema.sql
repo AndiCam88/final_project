@@ -78,7 +78,8 @@ select id,
     energy,
     loudness,
     valence,
-    tempo
+    tempo,
+    acousticness
 into spotify_features
 from spotify_full
 

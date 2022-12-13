@@ -4,7 +4,8 @@ select id,
     energy,
     loudness,
     valence,
-    tempo
+    tempo,
+    acousticness
 into sample_spotify_features
 from spotify_features
 order by id asc 
