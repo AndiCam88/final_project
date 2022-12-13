@@ -53,7 +53,7 @@ Those features are:
 - Acousticness: A higher value would indicate acoustic instruments and a lower value would indicate electronic instruments 
 
 #### *Attribute Table Snapshot*
-![spotify_features](https://user-images.githubusercontent.com/108373151/207213869-c1058286-e700-45d7-a486-d7e0a533904b.jpg)
+![spotify_features_new](https://user-images.githubusercontent.com/108373151/207215024-af0a4589-8572-4a50-8800-d0f59636a9b5.jpg)
 
 #### *Track Info Table Snapshot*
 ![spotify_track_info](https://user-images.githubusercontent.com/108373151/206340328-39d39290-fefe-4725-84a2-25218ec1a449.jpg)
