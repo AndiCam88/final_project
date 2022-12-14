@@ -1,6 +1,9 @@
 import dash
-from dash import html, dcc, Dash
-from pages.visualizer_utilities import tonal_key_names, hm_axis_options, sm_axis_options
+from dash import html, dcc
+from pages.visualizer_utilities import\
+    tonal_key_names,\
+    hm_axis_options,\
+    sm_axis_options
 
 ########################################################################################################################
 #
@@ -30,10 +33,6 @@ def main_header():
     [
         html.Div(
             [
-                html.H3(
-                    "Music Project",
-                    style={"margin-bottom": "0px"},
-                ),
                 html.H5(
                     "Data Explorer", style={"margin-top": "0px"}
                 ),

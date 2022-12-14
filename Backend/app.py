@@ -12,7 +12,7 @@ server = app.server
 
 
 app.layout = html.Div([
-	html.H1('Multi-page app with Dash Pages'),
+	html.H1('Music Project (Placeholder Name)', className="center"),
 
     html.Div(
         [

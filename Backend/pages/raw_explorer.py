@@ -1,26 +1,19 @@
-import dash
-import pandas
 import copy
-from dash import html, dcc, callback
+from dash import html, dcc, callback, register_page
 from dash.dependencies import Input, Output, State, ClientsideFunction
-import pages.raw_explorer_layout as raw_explorer_layout
-import pages.visualizer_utilities as visualizer_utilities
 import datashader as ds
 import numpy as np
-
-
-import plotly.figure_factory as ff
 import plotly.express as px
 
-dash.register_page(__name__)
+import pages.raw_explorer_layout as page_layout
+import pages.visualizer_utilities as visualizer_utilities
 
-#https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-features
 
-
+# Register the page to be accessible from our main dash app
+register_page(__name__)
 
 # Load data
 df = visualizer_utilities.load_data("../../Resources/")
-
 
 layout = dict(
     autosize=True,
@@ -33,7 +26,7 @@ layout = dict(
     title="Legend",
 )
 
-page_layout = raw_explorer_layout
+
 
 # Create app layout
 layout = html.Div(
@@ -157,8 +150,6 @@ def make_scatter_graph(year_slider, keys_filter, tempo_slider, danceability, ene
     if(fdf.tempo.count() > n):
         fdf = fdf.sample(n)
 
-    #TODO: Display Legend
-
     traces = []
     trace = dict(
         type="scattergl",
@@ -205,9 +196,6 @@ def make_density_graph(year_slider, keys_filter, tempo_slider, danceability, ene
     # Take a sample of our data. Here we are going with
     fdf = fdf.sample(100000)
 
-    #TODO: Display Legend
-    #TODO Add multiple. Have our input be a list
-
     traces = []
     trace = dict(
         type="histogram",
@@ -249,8 +237,6 @@ def make_heatmap(year_slider, keys_filter, tempo_slider, danceability, energy, v
     zero_mask = agg.values == 0
     agg.values = np.log10(agg.values, where=np.logical_not(zero_mask))
     agg.values[zero_mask] = np.nan
-
-    #TODO: Display Legend
 
     fig = px.imshow(agg, origin='lower',
                     labels=

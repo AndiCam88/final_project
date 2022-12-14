@@ -37,6 +37,10 @@ body {
   width: calc(100%-40px);
 }
 
+.center {
+  text-align: center;
+}
+
 .control_label {
   margin: 0;
   padding: 10px;
