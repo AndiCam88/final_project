@@ -1,5 +1,5 @@
 import pandas as pd
-import os.path
+from pathlib import Path
 import pandas as pd
 
 def filter_dataframe(original_df, year_slider, keys_filter, tempo_slider, danceability, energy, valence, loudness):
@@ -28,11 +28,16 @@ def filter_dataframe(original_df, year_slider, keys_filter, tempo_slider, dancea
     return fdf
 
 def intial_convert_to_parquet(directory_str):
-    if os.path.exists(f"{directory_str}/tracks_features.parquet"):
+
+    csv_path = (f'{Path(__file__).parent}/{directory_str}/tracks_features.csv').replace('\\', '/')
+    parquet_path = (f'{Path(__file__).parent}/{directory_str}/tracks_features.parquet').replace('\\', '/')
+
+
+    if Path(parquet_path).is_file():
         return
 
-    df = pd.read_csv(f'{directory_str}/tracks_features.csv', engine="pyarrow")
-    df.to_parquet(f"{directory_str}/tracks_features.parquet")
+    df = pd.read_csv(csv_path, engine="pyarrow")
+    df.to_parquet(parquet_path)
 
 def load_data(directory_str):
 
@@ -42,7 +47,7 @@ def load_data(directory_str):
 
     intial_convert_to_parquet(directory_str)
 
-    table = pd.read_parquet(f'{directory_str}/tracks_features.parquet', engine="fastparquet")
+    table = pd.read_parquet(f'{__file__}/../{directory_str}/tracks_features.parquet', engine="fastparquet")
 
     # Get rid of year 0 stuff
     table = table[table.year != 0]

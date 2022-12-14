@@ -25,7 +25,7 @@ server = app.server
 page_layout.app = app
 
 # Load data
-df = visualizer_utilities.load_data("Resources/")
+df = visualizer_utilities.load_data("../Resources/")
 
 
 layout = dict(
