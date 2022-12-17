@@ -9,6 +9,7 @@ Music can greatly alter the mood of the listener. It can help hype up a crowd at
 
 ## Project Visualizations
 
+- Web App: *https://neuralburst.io/MusicGroup/*
 - Google Slides Presentation: *(https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2FAndiCam88%2Ffinal_project%2Fmain%2FFinal%2520Project.pptx&wdOrigin=BROWSELINK)*
 
 ## Project Overview
@@ -67,7 +68,7 @@ We are using an unsupervised machine learning model for classification to attemp
 PgAdmin and SQLAlchemy were used for our project. Since our dataset is relatively straightforward, we only have 2 final tables that are joined using id (song id). 
 
 - spotify_track_info lists the id, name of the song, and the artist(s).
-- spotify_features lists the id and the chosen attributes: energy, loudness, valence, tempo, and danceability.
+- spotify_features lists the id and the chosen attributes: energy, loudness, valence, tempo, danceability and acousticness.
 
 #### *Entity Relationship Diagram (ERD)*
 ![database_ERD](https://user-images.githubusercontent.com/108373151/206344180-768641d9-bd53-499d-ad25-eaf53ca4c0ed.png)
@@ -95,6 +96,7 @@ This is a work in progress. However, we are currently able to explore the raw da
 - Valence
 - Tempo
 - Danceability
+- Acousticness
 
 The final submission will include a narrowed interactive element to allow exploration of singular songs depending on how the models have classified the songs.
 
