@@ -9,13 +9,15 @@ function FeaturesTable(){
     <div>
         <table style={{textAlign:'left'}}>
             <thead>
-                <td></td>
-                <td>Danceability</td>
-                <td>Energy</td>
-                <td>Loudness</td>
-                <td>Valence</td>
-                <td>Tempo</td>
-                <td>Acousticness</td>
+                <tr>
+                    <td></td>
+                    <td>Danceability</td>
+                    <td>Energy</td>
+                    <td>Loudness</td>
+                    <td>Valence</td>
+                    <td>Tempo</td>
+                    <td>Acousticness</td>
+                </tr>
             </thead>
             <tbody>
                 <tr>
@@ -91,11 +93,13 @@ function ResultsTable(){
         <div>
             <table>
                 <thead>
-                    <td></td>
-                    <td>Group 1</td>
-                    <td>Group 2</td>
-                    <td>Group 3</td>
-                    <td>Group 4</td>
+                    <tr>
+                        <td></td>
+                        <td>Group 1</td>
+                        <td>Group 2</td>
+                        <td>Group 3</td>
+                        <td>Group 4</td>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr>
@@ -151,7 +155,7 @@ export default function StoryPage(){
     return(
         <div style={{textAlign:'left'}}>
             <h1>Discussion</h1>
-            <p>
+            <div>
                 Can quantifiable features of a song be used to classify a song into subjective and emotional categories?
                 For example could we identify genre or mood of a song? This project is an attempt to see if this can be done
                 using modern machine learning tools with easily accessible public data from Spotify.
@@ -220,13 +224,13 @@ export default function StoryPage(){
                     </li>
                 </ul>
 
-            </p>
+            </div>
 
             <br/>
             <hr/>
             <br/>
             <h1>Methodology</h1>
-            <p>
+            <div>
                 We have reduced the number of features from above to perform our analysis on. The features we have decided to use are Danceability, Energy, Loudness, Valence, Tempo, and Acousticness. While the other features are useful and could
                 be used in further analysis, for our purposes we wanted to reduce the set. Below you can see details of each feature.
 
@@ -278,10 +282,10 @@ export default function StoryPage(){
                     <img  alt={"visualized pca cluster"} src={process.env.REACT_APP_BASE_URL + "/cluster_sample.png"}/>
                 </div>
 
-            </p>
+            </div>
 
             <h2>Results</h2>
-            <p>
+            <div>
                 <h3>Classes and Features</h3>
                 The methodology above generated four groups as requested by k-means clustering. The following table
                 shows mean data for each group
@@ -290,14 +294,14 @@ export default function StoryPage(){
                 And we can explore the data visually:
                 <VerticalSpacer></VerticalSpacer>
                 <SampleResultsPaginator></SampleResultsPaginator>
-            </p>
+            </div>
 
 
 
-            <h3>Data Analysis/resultsn</h3>
-            <h3>summary/discussionn</h3>
-            <h3>implicationsn</h3>
-            <h3>limitationsn</h3>
+            {/*<h3>Data Analysis/resultsn</h3>*/}
+            {/*<h3>summary/discussionn</h3>*/}
+            {/*<h3>implicationsn</h3>*/}
+            {/*<h3>limitationsn</h3>*/}
         </div>
     )
 }
