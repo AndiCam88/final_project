@@ -1,0 +1,115 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.VerticalSpacer {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  display:block;
+  border: 1px solid transparent;
+}
+
+.DebugBorder1 {
+  border: 0px solid red;
+}
+
+.DebugBorder2 {
+  border: 1px solid green;
+}
+
+.DebugBorder3 {
+  border: 1px solid orange;
+}
+
+.DebugBorder4 {
+  border: 1px solid blue;
+}
+
+.ApplicationInstaller{
+  border: 1px solid blue;
+  height: 0px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.alignLeft{
+  text-align: left;
+}
+
+.chartframe{
+  display:flex;
+  flex-direction: row;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.chartframeinner{
+  display:flex;
+  flex-direction: column;
+  justify-items: center;
+}
+
+.verticalText{
+  writing-mode: vertical-lr;
+  transform:scale(-1);
+  margin-right: -2.5em;
+  text-align: center;
+}
+
+.chartxlabel{
+  margin-top: -3.5em;
+}
+
+table{
+  margin-right: auto;
+  margin-left: auto;
+}
+
+th, td {
+  padding: 0.5em;
+  text-align: left;
+}
+
+.scaled_values_img{
+  width:100%;
+  display:flex;
+  flex-direction: row;
+  justify-items: center;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.scaled_values_img > img{
+  width:60%;
+  margin-left:auto;
+  margin-right:auto;
+}
