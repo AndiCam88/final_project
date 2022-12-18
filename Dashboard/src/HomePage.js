@@ -1,5 +1,5 @@
 import VerticalSpacer from "./components/VerticalSpacer";
-import {useEffect} from "react";
+import {useCallback, useEffect, useRef} from "react";
 import axios from "axios";
 import React from "react";
 import GaugeChart from 'react-gauge-chart'
@@ -10,23 +10,31 @@ import { ReactSearchAutocomplete } from 'react-search-autocomplete' // https://w
 
 function Filter(){
     const [items, setItems] = React.useState([]);
+    //const [current_search_string, setSearchString] = React.useState("");
     const auto_suggest_url="http://localhost:8080/getsuggestions"
-    var current_search_string = ""
+    const current_search_string = useRef("")
     var current_results = []
+
+
+    const detectKeyPress = useCallback(
+        (event) => {
+            if (event.key === 'Enter') {
+            console.log('Enter pressed! ', current_search_string.current)
+        }
+    }, [])
+
 
     useEffect(() => {
         document.addEventListener('keypress', detectKeyPress, false)
-
-        return () => {
-            window.removeEventListener('keypress', detectKeyPress);
-        };
-    })
+        return () => {window.removeEventListener('keypress', detectKeyPress, false)}
+    }, [])
+    
 
     function handleOnSearch(string, results){
-        current_search_string = string
+        current_search_string.current = string
+        //setSearchString(string)
         current_results = results
 
-        console.log(results)
         axios.get(auto_suggest_url).then( res =>{
             if(res.status === 200){
                 setItems(res.data)
@@ -35,7 +43,7 @@ function Filter(){
     }
 
     const handleOnSelect = (item) => {
-        // the item selected
+       //setSearchString(item.name)
         console.log(item)
     }
 
@@ -47,11 +55,7 @@ function Filter(){
         )
     }
 
-    const detectKeyPress = (event) => {
-        if (event.key === 'Enter') {
-            console.log('Enter pressed! ', current_search_string)
-        }
-    }
+
 
     // https://www.npmjs.com/package/react-search-autocomplete
     return(
@@ -71,7 +75,7 @@ function Filter(){
 
 
 function SimpleResults(props){
-    var group_number = 3;
+    var group_number = 5;
 
     function group_enum(val){
         val = parseInt(val)
@@ -83,10 +87,8 @@ function SimpleResults(props){
         if(val === 5) return ''
     }
 
-    // const color_group0 = '#02989A'
-    // const color_group1 = '#1241AA'
-    // const color_group2 = '#3914B0'
-    // const color_group3 = '#7308B0'
+
+
 
     const color_group0 = '#02329a'
     const color_group1 = '#45aa12'
@@ -108,6 +110,7 @@ function SimpleResults(props){
     let guage=(
         <GaugeChart
             nrOfLevels={4}
+            colors={[color_group0, color_group1, color_group2, color_group3]}
             formatTextValue={ x=> ''}
             percent={0}
             id="gauge-chart1" />
