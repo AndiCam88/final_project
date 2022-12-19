@@ -3,48 +3,60 @@ import {useCallback, useEffect, useRef} from "react";
 import axios from "axios";
 import React from "react";
 import GaugeChart from 'react-gauge-chart'
-import { ReactSearchAutocomplete } from 'react-search-autocomplete' // https://www.npmjs.com/package/react-search-autocomplete
+import { ReactSearchAutocomplete } from 'react-search-autocomplete'// https://www.npmjs.com/package/react-search-autocomplete
+import { w3cwebsocket as W3CWebSocket } from "websocket";
 
-// import ReactMarkdown from "react-markdown";
-// import remarkGfm from 'remark-gfm'
+// TODO: Move this connection into the main app. There are a couple of places we want to keep it.
+const client = new W3CWebSocket('ws://127.0.0.1:1223');
 
-function Filter(){
+
+function Filter(props){
     const [items, setItems] = React.useState([]);
-    //const [current_search_string, setSearchString] = React.useState("");
-    const auto_suggest_url="http://localhost:8080/getsuggestions"
-    const current_search_string = useRef("")
-    var current_results = []
-
-
-    const detectKeyPress = useCallback(
-        (event) => {
-            if (event.key === 'Enter') {
-            console.log('Enter pressed! ', current_search_string.current)
-        }
-    }, [])
-
 
     useEffect(() => {
-        document.addEventListener('keypress', detectKeyPress, false)
-        return () => {window.removeEventListener('keypress', detectKeyPress, false)}
-    }, [])
-    
 
-    function handleOnSearch(string, results){
-        current_search_string.current = string
-        //setSearchString(string)
-        current_results = results
-
-        axios.get(auto_suggest_url).then( res =>{
-            if(res.status === 200){
-                setItems(res.data)
+        client.onmessage = (message) => {
+            var myObj =  JSON.parse(message.data);
+            if( myObj != null){
+                if(myObj.code === 0){
+                    if( myObj.list != null && myObj.list.length > 0) {
+                        setItems(myObj.list)
+                    }
+                }
+                else if(myObj.code === 1){
+                    props.updateCallback(myObj.group)
+                }
             }
+
+        };
+    }, [])
+
+    async function handleOnSearch(string, results){
+
+        var message = JSON.stringify({
+            title: string
         })
+        var send_obj = {
+            code: 0,
+            message: message
+        }
+
+        // TODO: Handle dead websocket
+        client.send(JSON.stringify(send_obj))
     }
 
     const handleOnSelect = (item) => {
-       //setSearchString(item.name)
-        console.log(item)
+        var message = JSON.stringify({
+            id: item.id
+        })
+        var send_obj = {
+            code: 1,
+            message: message
+        }
+
+        // TODO: Handle dead websocket
+        client.send(JSON.stringify(send_obj))
+
     }
 
     const formatResult = (item) => {
@@ -55,27 +67,24 @@ function Filter(){
         )
     }
 
-
-
-    // https://www.npmjs.com/package/react-search-autocomplete
     return(
         <div style={{width:'50%', marginLeft:'auto', marginRight:'auto'}}>
             <ReactSearchAutocomplete
                 placeholder={'Enter a song name here'}
                 items={items}
+                inputDebounce={150}
                 onSearch={handleOnSearch}
-                // onHover={handleOnHover}
                 onSelect={handleOnSelect}
-                // onFocus={handleOnFocus}
+                //onClear={props.updateCallback(5)}
                 autoFocus
-                formatResult={formatResult}
+                //formatResult={formatResult}
             />
         </div>)
 }
 
 
 function SimpleResults(props){
-    var group_number = 5;
+    const [group_number, setGroup] = React.useState(5);
 
     function group_enum(val){
         val = parseInt(val)
@@ -86,8 +95,6 @@ function SimpleResults(props){
         if(val === 3) return 'Happy'
         if(val === 5) return ''
     }
-
-
 
 
     const color_group0 = '#02329a'
@@ -137,27 +144,51 @@ function SimpleResults(props){
             <VerticalSpacer></VerticalSpacer>
             <VerticalSpacer></VerticalSpacer>
             {guage}
-            <Filter></Filter>
+            <Filter updateCallback={x => setGroup(x)}></Filter>
+        </div>
+    )
+}
+
+function TestWS (){
+    const client = new W3CWebSocket('ws://127.0.0.1:1223');
+
+    useEffect(() => {
+
+        client.onopen = () => {
+            console.log('WebSocket Client Connected');
+            var message = JSON.stringify({
+                title: "hello"
+            })
+            var send_obj = {
+                code: 0,
+                message: message
+            }
+
+            console.log(send_obj)
+
+
+            client.send(JSON.stringify(send_obj))
+        };
+
+        client.onmessage = (message) => {
+            var myObj =  JSON.parse(message.data);
+            console.log(myObj);
+        };
+
+
+
+    }, [])
+
+    return(
+        <div>
+            Websocket Test component
         </div>
     )
 }
 
 
 
-
 export default function HomePage(){
-    //const [markdown, setMarkdown] = React.useState("");
-
-    //const markdown_link = 'https://raw.githubusercontent.com/AndiCam88/final_project/main/README.md'
-
-    useEffect(() => {
-
-        //var p = axios.get(markdown_link);
-        //p.then( res =>{
-        //   setMarkdown(res.data)
-        //})
-
-    }, [])
 
     return(
         <div>

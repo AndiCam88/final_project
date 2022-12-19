@@ -64,7 +64,6 @@ function Layout() {
 }
 
 function App() {
-    console.log("BaseUrl is: " + process.env.REACT_APP_BASE_URL)
     return (
         <div className="App">
             <BrowserRouter basename={process.env.REACT_APP_BASE_URL}>

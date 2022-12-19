@@ -2,7 +2,7 @@
   "name": "music-client",
   "version": "0.1.0",
   "private": true,
-  "homepage": ".",
+  "homepage": "/musicgroup",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -24,7 +24,8 @@
     "react-scripts": "5.0.1",
     "react-search-autocomplete": "^8.2.1",
     "remark-gfm": "^3.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "websocket": "^1.0.34"
   },
   "scripts": {
     "start": "env-cmd -f .envdev react-scripts start",
