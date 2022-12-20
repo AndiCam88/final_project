@@ -10,7 +10,7 @@ Music can greatly alter the mood of the listener. It can help hype up a crowd at
 ## Project Visualizations
 
 - Web App: *https://neuralburst.io/MusicGroup/*
-- Google Slides Presentation: *(https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2FAndiCam88%2Ffinal_project%2Fmain%2FFinal%2520Project.pptx&wdOrigin=BROWSELINK)*
+- Google Slides Presentation: *final_project.pdf*
 
 ## Project Overview
 
@@ -59,44 +59,56 @@ Those features are:
 #### *Track Info Table Snapshot*
 ![spotify_track_info](https://user-images.githubusercontent.com/108373151/206340328-39d39290-fefe-4725-84a2-25218ec1a449.jpg)
 
+#### *Feature Distribution*
+![feature_scales](https://user-images.githubusercontent.com/108373151/208559218-180fdede-4264-4497-a9ac-c2d85e9f74b6.jpg)
+
 ## Data Analysis & Machine Learning
 
 We are using an unsupervised machine learning model for classification to attempt to determine mood. Our classification model will group songs together on the five chosen attributes in a five-dimensional space. We will split the data using the K-Means clustering elbow method to find out how many groups are recommended based off the features. To have a successful unsupervised machine learning model, we need to make sure we have enough features to correctly group the songs. From there, we would be able to possibly determine mood based off the songs in each grouping.
 
+There are features that are unaligned in scale. After scaling these values with sklearn.preprocessing.MinMaxScaler() we can see the resulting data is more suitable for learning and clustering to avoid undue impact. Using k-means clustering from sklearn.cluster we discovered the following elbow curve and have decided to cluster our results into 4 sets.
+
+![elbow_curve](https://user-images.githubusercontent.com/108373151/208559433-a275d83a-0b59-4fd1-8cb0-86046210b98d.jpg)
+
+From here we are simply fitting the data and decomposing it to 2 dimensions for visualization. A sample of the fit data takes on the following form. Note that these have not been labeled yet.
+
+![pca_plot](https://user-images.githubusercontent.com/108373151/208559517-4c14e6ab-e6c5-45b2-ab7e-3ceaa93e76ac.jpg)
+
+The methodology above generated four groups as requested by k-means clustering. The following table shows mean data for each group.
+
+![group_means](https://user-images.githubusercontent.com/108373151/208559739-d8929587-6a75-446c-8b15-943ff9bc396f.jpg)
+
+
 ## Database
 
-PgAdmin and SQLAlchemy were used for our project. Since our dataset is relatively straightforward, we only have 2 final tables that are joined using id (song id). 
+PgAdmin and SQLAlchemy were used for our project. Since our dataset is relatively straightforward, we only have 2 tables that are joined using id (song id) and 1 additional table to hold the output of the machine learning model. 
 
 - spotify_track_info lists the id, name of the song, and the artist(s).
 - spotify_features lists the id and the chosen attributes: energy, loudness, valence, tempo, danceability and acousticness.
+- ML_moodoutput lists the id and the machine learning output.
 
 #### *Entity Relationship Diagram (ERD)*
-![database_ERD](https://user-images.githubusercontent.com/108373151/206344180-768641d9-bd53-499d-ad25-eaf53ca4c0ed.png)
+![database_ERD](https://user-images.githubusercontent.com/108373151/208558660-851765ab-123e-4f85-bc84-f1366517b6d2.png)
 
 Due to size limitations of our GitHub repository, the entire file of 1.2M+ songs in our 2 tables format was unable to be loaded in .csv format. Therefore, a sample table was created to show the top 100,000 songs sorted ascending by song id.
 
 ## Dashboard
 
-### Preliminary Data Visualization
+### Data Visualization
 
-Visualization and dashboard are primarly produced through the [plotly](https://plotly.com) python libraries and [dash]([GitHub - plotly/dash: Analytical Web Apps for Python, R, Julia, and Jupyter. No JavaScript Required.](https://github.com/plotly/dash)). Dash is used for webpage interactivity and plotly as the backend for producing visualizations. The dashboard for the raw visualizer will be hosted at https://neuralburst.io/MusicGroup/raw. However, the page is not yet live as there is some debugging to do. The source for the visualization can be found at [final_project/Backend](https://github.com/AndiCam88/final_project/tree/main/Backend). There are three files (along with some css and javascript glue in the assets subfolder).
+Visualization and dashboard are primarly produced through the [plotly](https://plotly.com) python libraries and [dash]([GitHub - plotly/dash: Analytical Web Apps for Python, R, Julia, and Jupyter. No JavaScript Required.](https://github.com/plotly/dash)). Dash is used for webpage interactivity and plotly as the backend for producing visualizations. The dashboard for the raw visualizer will be hosted at https://neuralburst.io/MusicGroup. 
 
-- app.py (to be renamed) controls the logic of the dashboard
+The source for the visualization can be found at [final_project/Backend](https://github.com/AndiCam88/final_project/tree/main/Backend). There are three files (along with some css and javascript glue in the assets subfolder).
+
+- app.py controls the logic of the dashboard
 - page_layout.py controls the layout
 - visualizer_utilities.py are some helper functions, seperated out from the main logic app for clarity.
   
 ### Interactivity
 
-This is a work in progress. However, we are currently able to explore the raw data based on:
+The final submission includes a narrowed interactive element to allow exploration of singular songs depending on how the models have classified the songs. The user inputs the song in the search function below and the dial shows the classification of the song using the machine learning model.
 
-- Year
-- Key
-- Energy
-- Loudness
-- Valence
-- Tempo
-- Danceability
-- Acousticness
+![webpage_home](https://user-images.githubusercontent.com/108373151/208560478-38a2dd9d-affc-4349-a141-0565c4bc9251.jpg)
 
-The final submission will include a narrowed interactive element to allow exploration of singular songs depending on how the models have classified the songs.
+A secondary page *(https://neuralburst.io/musicgroup/StoryPage)* tells the story of our project, including additional graphs.
 
