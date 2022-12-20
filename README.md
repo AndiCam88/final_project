@@ -21,7 +21,7 @@ As connoisseurs of the music industry, we recognize the vast range of emotional 
 ### Source Data 
 
 - Kaggle: Spotify 1.2M+ Songs with track features obtained through the Spotify API
-*(https://www.kaggle.com/datasets/rodolfofigueroa/spotify-12m-songs)*
+*https://www.kaggle.com/datasets/rodolfofigueroa/spotify-12m-songs*
 
 ### Questions to Analyze
 
@@ -78,6 +78,10 @@ The methodology above generated four groups as requested by k-means clustering. 
 
 ![group_means](https://user-images.githubusercontent.com/108373151/208559739-d8929587-6a75-446c-8b15-943ff9bc396f.jpg)
 
+- Group 1 labeled as Sad
+- Group 2 labeled as Calm
+- Group 3 labeled as Energetic
+- Group 4 labeled as Happy
 
 ## Database
 
