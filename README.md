@@ -10,7 +10,7 @@ Music can greatly alter the mood of the listener. It can help hype up a crowd at
 ## Project Visualizations
 
 - Web App: *https://neuralburst.io/MusicGroup/*
-- Google Slides Presentation: *final_project.pdf*
+- Google Slides Presentation: *https://github.com/AndiCam88/final_project/blob/34cc16cf04641aa19e548258f863aae72d29349d/final_project.pdf*
 
 ## Project Overview
 
