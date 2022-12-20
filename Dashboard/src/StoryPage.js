@@ -296,6 +296,7 @@ export default function StoryPage(){
                 <SampleResultsPaginator></SampleResultsPaginator>
             </div>
 
+            Web API reference: Spotify for developers. Home. (n.d.). Retrieved December 20, 2022, from https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-features
 
 
             {/*<h3>Data Analysis/resultsn</h3>*/}

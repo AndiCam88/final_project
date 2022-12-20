@@ -87,6 +87,7 @@
 
 .chartxlabel{
   margin-top: -3.5em;
+  text-align: center;
 }
 
 table{
@@ -113,3 +114,113 @@ th, td {
   margin-left:auto;
   margin-right:auto;
 }
+
+
+.svgcontainer {
+  width:100%;
+  margin-right: auto;
+  margin-left: auto;
+  display: grid;
+}
+
+.svggroup{
+}
+
+.svgGroupLabel{
+  position: relative;
+  left: 20%;
+  top: 10%;
+  height:0px;
+  width:10%;
+  text-align: left;
+  font-size: 1.5em;
+  margin: 0em;
+  z-index: 2;
+}
+
+.svgObject{
+}
+
+.svgcontainer, .svggroup {
+  grid-area: 1 / 1;
+  pointer-events: none;
+}
+
+.svgitem{
+  pointer-events: all;
+}
+
+.svghighlight{
+  scale: 100%;
+  filter: drop-shadow(10px 10px 4px #101010);
+}
+
+.svgminimize{
+  filter:
+    blur(0.5rem)
+    grayscale(85%)
+}
+
+.detailsContainer{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  justify-items: center;
+  height: 18em;
+}
+
+.detailsCarousel{
+  pointer-events: unset;
+}
+
+.detailsTable{
+margin-right:3em;
+}
+
+.detailsTableHeaders{
+  font-weight: bold;
+}
+
+.detailsTableValues{
+  color: #114cce;
+  color: #4c72b0;
+  font-size: 111%;
+}
+
+.detailsImg{
+  height:20em;
+  display: block;
+  margin: auto;
+}
+
+.lazyLoadContainer{
+  border: 1px solid red;
+  display:flex;
+  flex-direction: row;
+  margin-top: 3em;
+  height: 50em;
+}
+
+.lazyLoadFilter{
+  border: 1px solid blue;
+  width:30%
+}
+
+.lazyLoadTableFrame{
+  border: 1px solid green;
+  width:100%
+}
+
+.lazyColumnTitle{
+  border: 1px solid green;
+  display: inline-block;
+  margin-left: 1em;
+  margin-right: 1em;
+  width: 16em;
+  text-align: left;
+}
+
+.lazyColumnArtist{
+
+}
+
