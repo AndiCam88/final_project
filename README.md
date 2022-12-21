@@ -121,10 +121,12 @@ One of the limitations we ran into was the size of the dataset. Within the data,
 
 Additionally, another interesting data feature would be genre. A classical song is much different than a rap song. It would be interesting to see how data groups within each genre.
 
-While we were able to group the data into clusters, we were not able to determine a specific mood for each grouping. Mood can be subjective based on the listener. However, we were able to determine that songs could be grouped based on similar traits. It would be interesting to explore this dataset further to see if there is a way to determine mood.
+While we were able to group the data into clusters, it was difficult to determine a specific mood for each grouping. Mood can be subjective based on the listener. We were able to determine that songs could be grouped based on similar traits. The clusters of songs were labeled as a "mood" based on their attributes.
 
-
-
-
-
+- Group 0: Laid-Back
+- Group 1: Energetic
+- Group 2: Sad
+- Group 3: Happy
+- Group 4: Calm
+- Group 5: Angry
 
