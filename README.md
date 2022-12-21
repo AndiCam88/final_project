@@ -70,15 +70,13 @@ We are using an unsupervised machine learning model for classification to attemp
 
 There are features that are unaligned in scale. After scaling these values with sklearn.preprocessing.MinMaxScaler() we can see the resulting data is more suitable for learning and clustering to avoid undue impact. Additionally, some songs had 0 tempo, so we normalized this data to allow for better clustering. Using k-means clustering from sklearn.cluster we discovered the following elbow curve and have decided to cluster our results into 6 sets.
 
-![elbow_curve](https://user-images.githubusercontent.com/108373151/208559433-a275d83a-0b59-4fd1-8cb0-86046210b98d.jpg)
+![elbow_preprocess](https://user-images.githubusercontent.com/108373151/208801233-5dcd94b2-f92a-4f3e-9e2e-cbd9de083783.JPG)
 
 From here we are simply fitting the data and decomposing it using PCA to 2 dimensions for visualization. A sample of the fit data takes on the following form. Note that these have not been labeled yet.
 
-![pca_plot](https://user-images.githubusercontent.com/108373151/208559517-4c14e6ab-e6c5-45b2-ab7e-3ceaa93e76ac.jpg)
+![model](https://user-images.githubusercontent.com/108373151/208801312-9cb54362-2f68-43ad-aa1d-648d26446172.JPG)
 
-Once the Kmeans was defined using our n_clusters of 6 then fit to the songs features which gives us our Kmeans. From there, sklearn's PCA makes predictions using the Kmeans. Then to reduce the data to two dimensions we set the PCA's n_components to 2 and used fit_transform on the features once more to divide the songs into 6 clusters. The following table shows mean data for each group.
-
-![group_means](https://user-images.githubusercontent.com/108373151/208559739-d8929587-6a75-446c-8b15-943ff9bc396f.jpg)
+Once the Kmeans was defined using our n_clusters of 6 then fit to the songs features which gives us our Kmeans. From there, sklearn's PCA makes predictions using the Kmeans. Then to reduce the data to two dimensions we set the PCA's n_components to 2 and used fit_transform on the features once more to divide the songs into 6 clusters.
 
 Due to being unable to find a dataset that already has a mood output we had to create one. That being the biggest limitation of not being able to test the models accuracy better becuase what it is predicting is also something subjective. But the benefit of that is being able to create that output and control what we thought would be fitting. Therefore, there is no accuracy score for our model since we were not doing a supervised machine learning model.
 
