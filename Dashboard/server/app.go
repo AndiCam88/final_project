@@ -11,7 +11,6 @@ import (
 	_ "github.com/lib/pq"
 	_ "github.com/mattn/go-sqlite3"
 	"log"
-	"math/rand"
 	"net/http"
 	"os"
 	"time"
@@ -19,6 +18,8 @@ import (
 
 const autocomplete_request = 0
 const groupid_request = 1
+const simple_table_request = 2
+const simple_row_count = 3
 
 type fullRow struct {
 	//ID               string  `csv:"id"`
@@ -56,8 +57,10 @@ type chunkOfRows struct {
 }
 
 type autocompleteSuggestion struct {
-	Name string `json:"name"`
-	Id   int    `json:"id""`
+	Name    string `json:"name"`
+	Id      int    `json:"id""`
+	Index   string `json:"index""`
+	Artists string `json:"artists""`
 }
 
 var postgresdb *sql.DB
@@ -85,7 +88,7 @@ func connectToPosgres() {
 	fmt.Println("The database is connected")
 }
 
-func getGroupForSong(byteObj []byte) []byte {
+func getGroupForSong(byteObj []byte) string {
 	// Decode our input
 	type msg struct {
 		Id string `json:"id"`
@@ -99,39 +102,44 @@ func getGroupForSong(byteObj []byte) []byte {
 
 	// Format our output
 	type outputStruct struct {
-		Code  int `json:"code"`
 		Group int `json:"group"`
 	}
 
-	outObj := outputStruct{Code: groupid_request}
+	outObj := outputStruct{}
 
-	// TODO: Get result in the meantime
-	outObj.Group = rand.Intn(3)
+	rows, err := sqlitedb.Query("select label from tracks_features where id=?", msgObj.Id)
+	for rows.Next() {
+		err = rows.Scan(&outObj.Group)
+		if err != nil {
+			fmt.Printf("Query Extractor Failed on getting group")
+		}
+		break
+	}
 
 	outMsg, _ := json.Marshal(&outObj)
-
-	return outMsg
+	return string(outMsg[:])
 }
 
-func appendToList(list *[]autocompleteSuggestion, autocomplete_id int, suggestion string) {
+func appendToList(list *[]autocompleteSuggestion, autocomplete_id int, suggestion string, id string, artists string) {
 	item := autocompleteSuggestion{
-		Id:   autocomplete_id,
-		Name: suggestion,
+		Id:      autocomplete_id,
+		Name:    suggestion,
+		Index:   id,
+		Artists: artists,
 	}
 
 	*list = append(*list, item)
 }
 
-func getAutoCompleteResultsFromSqlite3(byteObj []byte) []byte {
+func getAutoCompleteResultsFromSqlite3(byteObj []byte) string {
 	// Define our output
 	numericalId := 0
 
 	// This is to format our output
 	type outputStruct struct {
-		Code int                      `json:"code"`
 		List []autocompleteSuggestion `json:"list"`
 	}
-	outputObj := outputStruct{Code: autocomplete_request}
+	outputObj := outputStruct{}
 
 	// Decode our input
 	type msg struct {
@@ -146,18 +154,28 @@ func getAutoCompleteResultsFromSqlite3(byteObj []byte) []byte {
 	}
 
 	// Exit early if we don't have enought data
-	if len(msgObj.Title) < 3 {
+	if len(msgObj.Title)+len(msgObj.Artist) < 3 {
 		output, _ := json.Marshal(outputObj)
-		return output
+		return string(output[:])
 	}
 
 	// Create our query
-	rows, err := sqlitedb.Query("SELECT id, name, artists FROM tracks_features WHERE lname like LOWER(?) LIMIT 10", fmt.Sprintf(`%%%s%%`, msgObj.Title))
-	if err != nil {
-		// Handle Error
+	var rows *sql.Rows
+	if msgObj.Artist == "" {
+		rows, err = sqlitedb.Query("SELECT id, name, artists FROM tracks_features WHERE lname like LOWER(?) LIMIT 10", fmt.Sprintf(`%%%s%%`, msgObj.Title))
+		if err != nil {
+			// Handle Error
+			fmt.Println("Error from query")
+		}
+	} else {
+		rows, err = sqlitedb.Query("SELECT id, name, artists FROM tracks_features WHERE lname like LOWER(?) AND lartists LIKE LOWER(?) LIMIT 10", fmt.Sprintf(`%%%s%%`, msgObj.Title), fmt.Sprintf(`%%%s%%`, msgObj.Artist))
+		if err != nil {
+			// Handle Error
+			fmt.Println("Error from query")
+		}
 	}
 
-	// Not totally sure what this does aside from the obvious
+	// Make sure we close this 'rows' connection when we are done
 	defer rows.Close()
 
 	// Go through our results and prepare
@@ -174,15 +192,142 @@ func getAutoCompleteResultsFromSqlite3(byteObj []byte) []byte {
 			fmt.Printf("Query Extractor Failed")
 		}
 
-		fmt.Println(trackName)
-
 		// Append the item to our return list and increment our id counter
-		appendToList(&outputObj.List, numericalId, trackName)
+		appendToList(&outputObj.List, numericalId, trackName, id, artists)
 		numericalId = numericalId + 1
 	}
 
 	output, _ := json.Marshal(outputObj)
-	return output
+	return string(output[:])
+}
+
+func getSimpleTable(byteObj []byte) string {
+	// Input
+	type msg struct {
+		RowStart int `json:"row"`
+		Count    int `json:"count"`
+		Group    int `json:"groupfilter"`
+	}
+
+	// Decode the message
+	var msgObj msg
+	err := json.Unmarshal(byteObj, &msgObj)
+	if err != nil {
+		// handle error
+		fmt.Println("error here")
+	}
+
+	type rowStruct struct {
+		Title        string  `json:"title"`
+		Artist       string  `json:"artists"`
+		Danceability float32 `json:"danceability"`
+		Energy       float32 `json:"energy"`
+		Loudness     float32 `json:"loudness"`
+		Valence      float32 `json:"valence"`
+		Tempo        float32 `json:"tempo"`
+		Acousticness float32 `json:"acousticness"`
+		Group        int     `json:"group"`
+	}
+
+	type outputStruct struct {
+		List []rowStruct `json:"list"`
+	}
+	outputObj := outputStruct{}
+
+	// Create our query
+
+	var rows *sql.Rows
+	if msgObj.Group == -1 {
+		rows, err = sqlitedb.Query("select name, artists, danceability, energy, loudness, valence, tempo, acousticness, label from tracks_features where ROWID between ? and ?", msgObj.RowStart, msgObj.RowStart+msgObj.Count)
+		if err != nil {
+			// handle error
+			fmt.Println("error here")
+		}
+	} else {
+		rows, err = sqlitedb.Query("select name, artists, danceability, energy, loudness, valence, tempo, acousticness, label from tracks_features where label=? limit ? offset ?", msgObj.Group, msgObj.Count, msgObj.RowStart)
+		if err != nil {
+			// handle error
+			fmt.Println("error here")
+		}
+	}
+
+	// Make sure we close this 'rows' connection when we are done
+	defer rows.Close()
+
+	// Go through our results and prepare
+	for rows.Next() {
+		row := rowStruct{}
+
+		err = rows.Scan(&row.Title,
+			&row.Artist,
+			&row.Danceability,
+			&row.Energy,
+			&row.Loudness,
+			&row.Valence,
+			&row.Tempo,
+			&row.Acousticness,
+			&row.Group)
+		if err != nil {
+			// Handle error
+			fmt.Printf("Query Extractor Failed")
+		}
+
+		outputObj.List = append(outputObj.List, row)
+	}
+
+	output, _ := json.Marshal(outputObj)
+	return string(output[:])
+}
+
+func getSimpleRowCount(byteObj []byte) string {
+	type msg struct {
+		Group int `json:"group"`
+	}
+
+	// Decode the message
+	var msgObj msg
+	err := json.Unmarshal(byteObj, &msgObj)
+	if err != nil {
+		// handle error
+		fmt.Println("error here")
+	}
+
+	type outputStruct struct {
+		Count int `json:"count"`
+	}
+	outputObj := outputStruct{}
+
+	// Create our query
+	var rows *sql.Rows
+	if msgObj.Group == -1 {
+		rows, err = sqlitedb.Query("SELECT count(*) FROM tracks_features")
+		if err != nil {
+			// handle error
+			fmt.Println("error here")
+		}
+	} else {
+		rows, err = sqlitedb.Query("select count(*) from tracks_features where label=?", msgObj.Group)
+		if err != nil {
+			// handle error
+			fmt.Println("error here")
+		}
+	}
+
+	// Make sure we close this 'rows' connection when we are done
+	defer rows.Close()
+
+	// Go through our results and prepare
+	for rows.Next() {
+
+		err = rows.Scan(&outputObj.Count)
+		if err != nil {
+			// Handle error
+			fmt.Printf("Query Extractor Failed")
+		}
+	}
+
+	output, _ := json.Marshal(outputObj)
+	return string(output[:])
 }
 
 // See more details at https://github.com/gobwas/ws
@@ -192,6 +337,11 @@ func StartWebsocketServer() {
 	type websocketMessage struct {
 		Code      int    `json:"code"`
 		MsgString string `json:"message"`
+	}
+
+	type outputMessage struct {
+		Code    int    `json:"code"`
+		ByteObj string `json:"obj"`
 	}
 
 	// Start another http server that specifically runs our websocket service
@@ -217,11 +367,13 @@ func StartWebsocketServer() {
 				// Wait for a message
 				msg, op, err := wsutil.ReadClientData(conn)
 				if err != nil {
+					//fmt.Println("One")
 					return
 				}
 
 				// Close the message if needed
 				if op == ws.OpClose {
+					//fmt.Println("Two")
 					return
 				}
 
@@ -229,26 +381,40 @@ func StartWebsocketServer() {
 				msgObj := websocketMessage{}
 				err = json.Unmarshal(msg, &msgObj)
 				if err != nil {
+					//fmt.Println("Three")
 					return
 				}
+
+				var objvalue string
 
 				switch msgObj.Code {
 				case autocomplete_request:
 					{
-						x := getAutoCompleteResultsFromSqlite3([]byte(msgObj.MsgString))
-						err = wsutil.WriteServerMessage(conn, op, x)
-						if err != nil {
-							return
-						}
+						objvalue = getAutoCompleteResultsFromSqlite3([]byte(msgObj.MsgString))
 					}
 				case groupid_request:
 					{
-						x := getGroupForSong([]byte(msgObj.MsgString))
-						err = wsutil.WriteServerMessage(conn, op, x)
-						if err != nil {
-							return
-						}
+						objvalue = getGroupForSong([]byte(msgObj.MsgString))
 					}
+				case simple_table_request:
+					{
+						objvalue = getSimpleTable([]byte(msgObj.MsgString))
+					}
+				case simple_row_count:
+					{
+						objvalue = getSimpleRowCount([]byte(msgObj.MsgString))
+					}
+				}
+
+				oMsg := outputMessage{
+					Code:    msgObj.Code,
+					ByteObj: objvalue,
+				}
+				output, _ := json.Marshal(oMsg)
+
+				err = wsutil.WriteServerMessage(conn, op, output)
+				if err != nil {
+					return
 				}
 			}
 		}()
@@ -264,7 +430,7 @@ func main() {
 	var err error
 	sqlitedb, err = sql.Open("sqlite3", os.Getenv("SQLITE_DB_NAME"))
 	if err != nil {
-		// Handle Error
+		// handle error
 	}
 
 	// Connect to our postgres db

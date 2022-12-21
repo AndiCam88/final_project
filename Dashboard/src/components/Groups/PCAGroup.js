@@ -4,6 +4,7 @@ import {dGroup3} from "./Group3SVGPath";
 import {dGroup4} from "./Group4SVGPath";
 import {dGroup5} from "./Group5SVGPath";
 import {dGroup6} from "./Group6SVGPath";
+import mapname, {mapcolor} from "../Groupnames";
 
 
 export default function PCAGroup(props){
@@ -25,50 +26,37 @@ export default function PCAGroup(props){
 
     viewbox = "0 0 2500 1875"
 
+    fillcolor=mapcolor(props.id-1)
+    strokecolor=mapcolor(props.id-1)
+    groupname = mapname(props.id - 1)
+
     if(props.id === 1){
-        fillcolor = "red"
-        strokecolor = "red"
-        groupname = "Group 1"
+
         groupd = dGroup1
         domID = "Group1"
     }
 
     if(props.id === 2){
-        fillcolor = "orange"
-        strokecolor = "orange"
-        groupname = "Group 2"
         groupd = dGroup2
         domID = "Group2"
     }
 
     if(props.id === 3){
-        fillcolor = "blue"
-        strokecolor = "blue"
-        groupname = "Group 3"
         groupd = dGroup3
         domID = "Group3"
     }
 
     if(props.id === 4){
-        fillcolor = "purple"
-        strokecolor = "purple"
-        groupname = "Group 4"
         groupd = dGroup4
         domID = "Group4"
     }
 
     if(props.id === 5){
-        fillcolor = "green"
-        strokecolor = "green"
-        groupname = "Group 5"
         groupd = dGroup5
         domID = "Group5"
     }
 
     if(props.id === 6){
-        fillcolor = "brown"
-        strokecolor = "brown"
-        groupname = "Group 6"
         groupd = dGroup6
         domID = "Group6"
     }

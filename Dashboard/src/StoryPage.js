@@ -2,6 +2,7 @@ import DistributionPaginator from "./components/DistributionPaginator";
 import MeanPerYearPaginator from "./components/MeanPerYearPaginator";
 import VerticalSpacer from "./components/VerticalSpacer";
 import SampleResultsPaginator from "./components/ResultGraphPaginator";
+import {group1, group2, group3, group4, group5, group6} from "./components/ResultsGroupPCAChart";
 
 
 function FeaturesTable(){
@@ -89,6 +90,26 @@ function FeaturesTable(){
 }
 
 function ResultsTable(){
+
+
+    var row = ["Danceability", "Energy", "Loudness", "Valence", "Tempo", "Acousticness"]
+    var group_list = [group1, group2, group3, group4, group5, group6]
+    var rows = []
+
+    row.forEach(r=>{
+        rows.push(
+            <tr>
+                <td>{r}</td>
+                <td>{group1[r]}</td>
+                <td>{group2[r]}</td>
+                <td>{group3[r]}</td>
+                <td>{group4[r]}</td>
+                <td>{group5[r]}</td>
+                <td>{group6[r]}</td>
+            </tr>
+        )
+    })
+
     return(
         <div>
             <table>
@@ -99,51 +120,12 @@ function ResultsTable(){
                         <td>Group 2</td>
                         <td>Group 3</td>
                         <td>Group 4</td>
+                        <td>Group 5</td>
+                        <td>Group 6</td>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Danceability</td>
-                        <td>0.564474</td>
-                        <td>0.589115</td>
-                        <td>0.427017</td>
-                        <td>0.506123</td>
-                    </tr>
-                    <tr>
-                        <td>Energy</td>
-                        <td>0.505093</td>
-                        <td>0.603762</td>
-                        <td>0.690067</td>
-                        <td>0.625166</td>
-                    </tr>
-                    <tr>
-                        <td>Loudness</td>
-                        <td>-10.797166</td>
-                        <td>-9.813745</td>
-                        <td>-9.225017</td>
-                        <td>-10.343946</td>
-                    </tr>
-                    <tr>
-                        <td>Valence</td>
-                        <td>0.471600</td>
-                        <td>0.545456</td>
-                        <td>0.535440</td>
-                        <td>0.516104</td>
-                    </tr>
-                    <tr>
-                        <td>Tempo</td>
-                        <td>88.018297</td>
-                        <td>115.790939</td>
-                        <td>176.192417</td>
-                        <td>140.218492</td>
-                    </tr>
-                    <tr>
-                        <td>Acousticness</td>
-                        <td>0.389773</td>
-                        <td>0.299441</td>
-                        <td>0.231401</td>
-                        <td>0.297569</td>
-                    </tr>
+                {rows}
                 </tbody>
             </table>
         </div>
@@ -269,7 +251,7 @@ export default function StoryPage(){
                 <VerticalSpacer/>
                 <h3>Preprocessing Clustering</h3>
                 Using k-means clustering from <code>sklearn.cluster</code> we discovered the following elbow curve and have decided
-                to cluster our results into 4 sets.
+                to cluster our results into 6 sets.
                 <div className={'scaled_values_img'}>
                     <img  alt={"elbow curve"} src={process.env.REACT_APP_BASE_URL + "/elbow.png"}/>
                 </div>
@@ -295,14 +277,14 @@ export default function StoryPage(){
                 <VerticalSpacer></VerticalSpacer>
                 <SampleResultsPaginator></SampleResultsPaginator>
             </div>
+            <VerticalSpacer></VerticalSpacer>
+            <VerticalSpacer></VerticalSpacer>
+            <VerticalSpacer></VerticalSpacer>
+            <VerticalSpacer></VerticalSpacer>
 
             Web API reference: Spotify for developers. Home. (n.d.). Retrieved December 20, 2022, from https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-features
-
-
-            {/*<h3>Data Analysis/resultsn</h3>*/}
-            {/*<h3>summary/discussionn</h3>*/}
-            {/*<h3>implicationsn</h3>*/}
-            {/*<h3>limitationsn</h3>*/}
+            <VerticalSpacer></VerticalSpacer>
+            <VerticalSpacer></VerticalSpacer>
         </div>
     )
 }

@@ -1,9 +1,11 @@
 import Carousel from "better-react-carousel";
 import React, {useState} from "react";
 import VerticalSpacer from "./VerticalSpacer";
+import {mapcolor} from "./Groupnames";
 
 
 function DetailsMeanTable(props){
+    console.log()
     return(
         <div className={"detailsTable"}>
             <table style={{textAlign:"left"}}>
@@ -14,56 +16,16 @@ function DetailsMeanTable(props){
                 </tr>
                 </thead>
                 <tbody>
-                <tr><td className={"detailsTableHeaders"}>Danceability</td><td className={"detailsTableValues"}>{props.details.Danceability}</td></tr>
-                <tr><td className={"detailsTableHeaders"}>Energy</td><td  className={"detailsTableValues"}>{props.details.Energy}</td></tr>
-                <tr><td className={"detailsTableHeaders"}>Loudness</td><td  className={"detailsTableValues"}>{props.details.Loudness}</td></tr>
-                <tr><td className={"detailsTableHeaders"}>Valence</td><td  className={"detailsTableValues"}>{props.details.Valence}</td></tr>
-                <tr><td className={"detailsTableHeaders"}>Tempo</td><td  className={"detailsTableValues"}>{props.details.Tempo}</td></tr>
-                <tr><td className={"detailsTableHeaders"}>Acousticness</td><td  className={"detailsTableValues"}>{props.details.Acousticness}</td></tr>
+                <tr><td className={"detailsTableHeaders"}>Danceability</td><td className={"detailsTableValues"} style={{color:mapcolor(props.details.id)}}>{props.details.Danceability}</td></tr>
+                <tr><td className={"detailsTableHeaders"}>Energy</td><td  className={"detailsTableValues"} style={{color:mapcolor(props.details.id)}}>{props.details.Energy}</td></tr>
+                <tr><td className={"detailsTableHeaders"}>Loudness</td><td  className={"detailsTableValues"} style={{color:mapcolor(props.details.id)}}>{props.details.Loudness}</td></tr>
+                <tr><td className={"detailsTableHeaders"}>Valence</td><td  className={"detailsTableValues"} style={{color:mapcolor(props.details.id)}}>{props.details.Valence}</td></tr>
+                <tr><td className={"detailsTableHeaders"}>Tempo</td><td  className={"detailsTableValues"} style={{color:mapcolor(props.details.id)}}>{props.details.Tempo}</td></tr>
+                <tr><td className={"detailsTableHeaders"}>Acousticness</td><td  className={"detailsTableValues"} style={{color:mapcolor(props.details.id)}}>{props.details.Acousticness}</td></tr>
                 </tbody>
             </table>
         </div>
     )
-}
-
-function LazyLoadFilter(props){
-    return(
-        <div className={"lazyLoadFilter"}>
-            I am a filter
-        </div>
-    )
-}
-
-function LazyLoadTableFrame(props){
-    return(
-        <div className={"lazyLoadTableFrame"}>
-            <div>
-                <span className={"lazyColumnTitle"}>Title</span>
-                <span className={"lazyColumnArtist"}>Artist</span>
-                <span>Danceability</span>
-                <span>Energy</span>
-                <span>Loudness</span>
-                <span>Valence</span>
-                <span>Tempo</span>
-                <span>Acousticness</span>
-                <span>Duration</span>
-                <span>Instrumentalness</span>
-                <span>Key</span>
-                <span>Liveness</span>
-                <span>Mode</span>
-                <span>Speechiness</span>
-                <span>Tempo</span>
-                <span>Time Signature</span>
-            </div>
-        </div>
-    )
-}
-function LazyLoadingTable(props){
-    return (
-        <div>
-
-        </div>
-    );
 }
 
 export default function Details(props){
@@ -105,18 +67,7 @@ export default function Details(props){
                 </Carousel.Item>
             </Carousel>
         </div>
-        <LazyLoadingTable></LazyLoadingTable>
-            <VerticalSpacer></VerticalSpacer>
-            <VerticalSpacer></VerticalSpacer>
-            <VerticalSpacer></VerticalSpacer>
-            <VerticalSpacer></VerticalSpacer>
-            <VerticalSpacer></VerticalSpacer>
-            <VerticalSpacer></VerticalSpacer>
-            <VerticalSpacer></VerticalSpacer>
-            <VerticalSpacer></VerticalSpacer>
-            <VerticalSpacer></VerticalSpacer>
-            <VerticalSpacer></VerticalSpacer>
-            <VerticalSpacer></VerticalSpacer>
+        <VerticalSpacer></VerticalSpacer>
         </div>
     )
 }

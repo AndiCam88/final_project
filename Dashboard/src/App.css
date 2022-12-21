@@ -128,14 +128,16 @@ th, td {
 
 .svgGroupLabel{
   position: relative;
-  left: 20%;
+  left: 5%;
   top: 10%;
   height:0px;
-  width:10%;
+  width:25%;
   text-align: left;
-  font-size: 1.5em;
+  font-size: 3.5em;
+  font-weight: bolder;
   margin: 0em;
   z-index: 2;
+  text-transform: uppercase;
 }
 
 .svgObject{
@@ -178,13 +180,14 @@ margin-right:3em;
 }
 
 .detailsTableHeaders{
-  font-weight: bold;
+  /*font-weight: bold;*/
 }
 
 .detailsTableValues{
-  color: #114cce;
-  color: #4c72b0;
+  /*color: #114cce;*/
+  /*color: #4c72b0;*/
   font-size: 111%;
+  font-weight: bold;
 }
 
 .detailsImg{
@@ -224,3 +227,36 @@ margin-right:3em;
 
 }
 
+
+.customDBPageinatorRow{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top:0.5em;
+}
+
+.customDBPageinatorButton{
+  width: 3em;
+}
+
+td {
+  white-space:nowrap;
+}
+
+.customDBTitle{
+  width: 30em;
+  max-width: 30em;
+  overflow: clip;
+}
+
+.customDBArtist{
+  width: 15em;
+  max-width: 15em;
+  overflow: clip;
+}
+
+.customDBDanceability{
+  width: 15em;
+  max-width: 15em;
+  overflow: clip;
+}
