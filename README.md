@@ -78,6 +78,8 @@ From here we are simply fitting the data and decomposing it using PCA to 2 dimen
 
 Once the Kmeans was defined using our n_clusters of 6 then fit to the songs features which gives us our Kmeans. From there, sklearn's PCA makes predictions using the Kmeans. Then to reduce the data to two dimensions we set the PCA's n_components to 2 and used fit_transform on the features once more to divide the songs into 6 clusters.
 
+![attribute_means](https://user-images.githubusercontent.com/108373151/208807547-72e89fc1-424a-43a9-95d9-fe1e649210f0.jpg)
+
 Due to being unable to find a dataset that already has a mood output we had to create one. That being the biggest limitation of not being able to test the models accuracy better becuase what it is predicting is also something subjective. But the benefit of that is being able to create that output and control what we thought would be fitting. Therefore, there is no accuracy score for our model since we were not doing a supervised machine learning model.
 
 ## Database
@@ -130,3 +132,4 @@ While we were able to group the data into clusters, it was difficult to determin
 - Group 4: Calm
 - Group 5: Angry
 
+![output_mood](https://user-images.githubusercontent.com/108373151/208805773-dd1bd090-53cf-4b25-ba16-81808f5c093e.JPG)
