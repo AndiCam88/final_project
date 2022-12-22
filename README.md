@@ -84,14 +84,13 @@ Due to being unable to find a dataset that already has a mood output we had to c
 
 ## Database
 
-PgAdmin and SQLAlchemy were used for our project. Since our dataset is relatively straightforward, we only have 2 tables that are joined using id (song id) and 1 additional table to hold the output of the machine learning model. 
+PgAdmin and SQLAlchemy were used for our project. Since our dataset is relatively straightforward, we only have 2 tables that are joined using id (song id). 
 
 - spotify_track_info lists the id, name of the song, and the artist(s).
 - spotify_features lists the id and the chosen attributes: energy, loudness, valence, tempo, danceability and acousticness.
-- ML_moodoutput lists the id and the machine learning output.
 
 #### *Entity Relationship Diagram (ERD)*
-![database_ERD](https://user-images.githubusercontent.com/108373151/208558660-851765ab-123e-4f85-bc84-f1366517b6d2.png)
+![database_ERD](https://user-images.githubusercontent.com/108373151/209034139-43a23ecd-0a36-4432-9584-ebd0983e449e.png)
 
 Due to size limitations of our GitHub repository, the entire file of 1.2M+ songs in our 2 tables format was unable to be loaded in .csv format. Therefore, a sample table was created to show the top 100,000 songs sorted ascending by song id.
 
