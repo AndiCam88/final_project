@@ -13,7 +13,6 @@ function StaticChartAcousticDistribution(){
             xaxis={'Percentage Value'}
             yaxis={'Song Count'}
         >
-            A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.
             This distribution takes on a distinct bathtub curve
         </ChartCard>
     )
@@ -27,7 +26,6 @@ function StaticChartDanceabilityDistribution(){
             xaxis={'Percentage Value'}
             yaxis={'Song Count'}
         >
-            A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.
         </ChartCard>
     )
 }
@@ -40,7 +38,6 @@ function StaticChartEnergyDistribution(){
             xaxis={'Percentage Value'}
             yaxis={'Song Count'}
         >
-            A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.
         </ChartCard>
     )
 }
@@ -53,7 +50,6 @@ function StaticChartInstrumentalDistribution(){
             xaxis={'Percentage Value'}
             yaxis={'Song Count'}
         >
-            A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.
         </ChartCard>
     )
 }
@@ -66,7 +62,6 @@ function StaticChartLivenessDistribution(){
             xaxis={'Percentage Value'}
             yaxis={'Song Count'}
         >
-            A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.
         </ChartCard>
     )
 }
@@ -79,7 +74,6 @@ function StaticChartLoudnessDistribution(){
             xaxis={'decibels (dB)'}
             yaxis={'Song Count'}
         >
-            The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typically range between -60 and 0 db.
         </ChartCard>
     )
 }
@@ -92,7 +86,6 @@ function StaticChartSpeechinessDistribution(){
             xaxis={'Percentage Value'}
             yaxis={'Song Count'}
         >
-            Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks.
         </ChartCard>
     )
 }
@@ -105,7 +98,6 @@ function StaticChartTempoDistribution(){
             xaxis={'Percentage Value'}
             yaxis={'Song Count'}
         >
-            The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.
         </ChartCard>
     )
 }
@@ -118,7 +110,6 @@ function StaticChartValenceDistribution(){
             xaxis={'Percentage Value'}
             yaxis={'Song Count'}
         >
-            A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).
         </ChartCard>
     )
 }

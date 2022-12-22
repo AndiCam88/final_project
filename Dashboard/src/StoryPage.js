@@ -2,6 +2,7 @@ import DistributionPaginator from "./components/DistributionPaginator";
 import MeanPerYearPaginator from "./components/MeanPerYearPaginator";
 import VerticalSpacer from "./components/VerticalSpacer";
 import SampleResultsPaginator from "./components/ResultGraphPaginator";
+import {group1, group2, group3, group4, group5, group6} from "./components/ResultsGroupPCAChart";
 
 
 function FeaturesTable(){
@@ -9,13 +10,15 @@ function FeaturesTable(){
     <div>
         <table style={{textAlign:'left'}}>
             <thead>
-                <td></td>
-                <td>Danceability</td>
-                <td>Energy</td>
-                <td>Loudness</td>
-                <td>Valence</td>
-                <td>Tempo</td>
-                <td>Acousticness</td>
+                <tr>
+                    <td></td>
+                    <td>Danceability</td>
+                    <td>Energy</td>
+                    <td>Loudness</td>
+                    <td>Valence</td>
+                    <td>Tempo</td>
+                    <td>Acousticness</td>
+                </tr>
             </thead>
             <tbody>
                 <tr>
@@ -87,59 +90,42 @@ function FeaturesTable(){
 }
 
 function ResultsTable(){
+
+
+    var row = ["Danceability", "Energy", "Loudness", "Valence", "Tempo", "Acousticness"]
+    var group_list = [group1, group2, group3, group4, group5, group6]
+    var rows = []
+
+    row.forEach(r=>{
+        rows.push(
+            <tr>
+                <td>{r}</td>
+                <td>{group1[r]}</td>
+                <td>{group2[r]}</td>
+                <td>{group3[r]}</td>
+                <td>{group4[r]}</td>
+                <td>{group5[r]}</td>
+                <td>{group6[r]}</td>
+            </tr>
+        )
+    })
+
     return(
         <div>
             <table>
                 <thead>
-                    <td></td>
-                    <td>Group 1</td>
-                    <td>Group 2</td>
-                    <td>Group 3</td>
-                    <td>Group 4</td>
+                    <tr>
+                        <td></td>
+                        <td>Group 1</td>
+                        <td>Group 2</td>
+                        <td>Group 3</td>
+                        <td>Group 4</td>
+                        <td>Group 5</td>
+                        <td>Group 6</td>
+                    </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Danceability</td>
-                        <td>0.564474</td>
-                        <td>0.589115</td>
-                        <td>0.427017</td>
-                        <td>0.506123</td>
-                    </tr>
-                    <tr>
-                        <td>Energy</td>
-                        <td>0.505093</td>
-                        <td>0.603762</td>
-                        <td>0.690067</td>
-                        <td>0.625166</td>
-                    </tr>
-                    <tr>
-                        <td>Loudness</td>
-                        <td>-10.797166</td>
-                        <td>-9.813745</td>
-                        <td>-9.225017</td>
-                        <td>-10.343946</td>
-                    </tr>
-                    <tr>
-                        <td>Valence</td>
-                        <td>0.471600</td>
-                        <td>0.545456</td>
-                        <td>0.535440</td>
-                        <td>0.516104</td>
-                    </tr>
-                    <tr>
-                        <td>Tempo</td>
-                        <td>88.018297</td>
-                        <td>115.790939</td>
-                        <td>176.192417</td>
-                        <td>140.218492</td>
-                    </tr>
-                    <tr>
-                        <td>Acousticness</td>
-                        <td>0.389773</td>
-                        <td>0.299441</td>
-                        <td>0.231401</td>
-                        <td>0.297569</td>
-                    </tr>
+                {rows}
                 </tbody>
             </table>
         </div>
@@ -151,7 +137,7 @@ export default function StoryPage(){
     return(
         <div style={{textAlign:'left'}}>
             <h1>Discussion</h1>
-            <p>
+            <div>
                 Can quantifiable features of a song be used to classify a song into subjective and emotional categories?
                 For example could we identify genre or mood of a song? This project is an attempt to see if this can be done
                 using modern machine learning tools with easily accessible public data from Spotify.
@@ -220,13 +206,13 @@ export default function StoryPage(){
                     </li>
                 </ul>
 
-            </p>
+            </div>
 
             <br/>
             <hr/>
             <br/>
             <h1>Methodology</h1>
-            <p>
+            <div>
                 We have reduced the number of features from above to perform our analysis on. The features we have decided to use are Danceability, Energy, Loudness, Valence, Tempo, and Acousticness. While the other features are useful and could
                 be used in further analysis, for our purposes we wanted to reduce the set. Below you can see details of each feature.
 
@@ -265,7 +251,7 @@ export default function StoryPage(){
                 <VerticalSpacer/>
                 <h3>Preprocessing Clustering</h3>
                 Using k-means clustering from <code>sklearn.cluster</code> we discovered the following elbow curve and have decided
-                to cluster our results into 4 sets.
+                to cluster our results into 6 sets.
                 <div className={'scaled_values_img'}>
                     <img  alt={"elbow curve"} src={process.env.REACT_APP_BASE_URL + "/elbow.png"}/>
                 </div>
@@ -278,10 +264,10 @@ export default function StoryPage(){
                     <img  alt={"visualized pca cluster"} src={process.env.REACT_APP_BASE_URL + "/cluster_sample.png"}/>
                 </div>
 
-            </p>
+            </div>
 
             <h2>Results</h2>
-            <p>
+            <div>
                 <h3>Classes and Features</h3>
                 The methodology above generated four groups as requested by k-means clustering. The following table
                 shows mean data for each group
@@ -290,14 +276,15 @@ export default function StoryPage(){
                 And we can explore the data visually:
                 <VerticalSpacer></VerticalSpacer>
                 <SampleResultsPaginator></SampleResultsPaginator>
-            </p>
+            </div>
+            <VerticalSpacer></VerticalSpacer>
+            <VerticalSpacer></VerticalSpacer>
+            <VerticalSpacer></VerticalSpacer>
+            <VerticalSpacer></VerticalSpacer>
 
-
-
-            <h3>Data Analysis/resultsn</h3>
-            <h3>summary/discussionn</h3>
-            <h3>implicationsn</h3>
-            <h3>limitationsn</h3>
+            Web API reference: Spotify for developers. Home. (n.d.). Retrieved December 20, 2022, from https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-features
+            <VerticalSpacer></VerticalSpacer>
+            <VerticalSpacer></VerticalSpacer>
         </div>
     )
 }

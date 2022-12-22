@@ -62,6 +62,26 @@ function Group4(){
     )
 }
 
+function Group5(){
+    return(
+        <ChartCard2
+            title={ 'Group 5'}
+            chart_src={process.env.REACT_APP_BASE_URL + "/sample_results/group5.png"}
+        >
+        </ChartCard2>
+    )
+}
+
+function Group6(){
+    return(
+        <ChartCard2
+            title={ 'Group 6'}
+            chart_src={process.env.REACT_APP_BASE_URL + "/sample_results/group6.png"}
+        >
+        </ChartCard2>
+    )
+}
+
 
 export default function SampleResultsPaginator(props) {
     const [built, setBuilt] = React.useState(false);
@@ -102,6 +122,18 @@ export default function SampleResultsPaginator(props) {
             name: 'group4',
             pagination: <Pagination.Item key={number++} onClick={() => update('group4')} active={active_number === number}>{number}</Pagination.Item>,
             display: <Group4></Group4>
+        })
+
+        items.push({
+            name: 'group5',
+            pagination: <Pagination.Item key={number++} onClick={() => update('group5')} active={active_number === number}>{number}</Pagination.Item>,
+            display: <Group5></Group5>
+        })
+
+        items.push({
+            name: 'group6',
+            pagination: <Pagination.Item key={number++} onClick={() => update('group6')} active={active_number === number}>{number}</Pagination.Item>,
+            display: <Group6></Group6>
         })
 
         current_view=items[active_number - 1].display
@@ -148,7 +180,7 @@ export default function SampleResultsPaginator(props) {
     return (
         <div style={{
             display:'flex',
-            height:'576px',
+            height:'676px',
             flexDirection:'column',
             justifyContent: 'space-between',
             justifyItems: 'center'}}

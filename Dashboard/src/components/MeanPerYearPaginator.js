@@ -10,7 +10,6 @@ function Acousticness(){
             xaxis={'Year'}
             yaxis={'Percentage Value'}
         >
-            A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).
         </ChartCard>
     )
 }
@@ -24,7 +23,6 @@ function Danceability(){
             xaxis={'Year'}
             yaxis={'Percentage Value'}
         >
-            A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).
         </ChartCard>
     )
 }
@@ -37,7 +35,6 @@ function Energy(){
             xaxis={'Year'}
             yaxis={'Percentage Value'}
         >
-            A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).
         </ChartCard>
     )
 }
@@ -50,7 +47,6 @@ function Instrumentalness(){
             xaxis={'Year'}
             yaxis={'Percentage Value'}
         >
-            A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).
         </ChartCard>
     )
 }
@@ -63,7 +59,6 @@ function Liveness(){
             xaxis={'Year'}
             yaxis={'Percentage Value'}
         >
-            A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).
         </ChartCard>
     )
 }
@@ -90,7 +85,6 @@ function Speechiness(){
             yaxis={'Percentage Value'}
             xaxis={'Year'}
         >
-            A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).
         </ChartCard>
     )
 }
@@ -103,7 +97,6 @@ function Tempo(){
             yaxis={'Beats Per Minute'}
             xaxis={'Year'}
         >
-            A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).
         </ChartCard>
     )
 }
@@ -116,7 +109,6 @@ function Valence(){
             yaxis={'Percentage Value'}
             xaxis={'Year'}
         >
-            A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).
         </ChartCard>
     )
 }

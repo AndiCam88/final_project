@@ -1,1 +1,2 @@
-REACT_APP_BASE_URL = ""
+REACT_APP_BASE_URL = "/musicgroup"
+REACT_APP_AUTOCOMPLETE_URL = "https://neuralburst.io/musicappapi/getsuggestions"
