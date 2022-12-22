@@ -85,8 +85,3 @@ from spotify_full
 
 select * from spotify_features
 
--- Creating table to hold ML mood output
-CREATE TABLE ML_moodoutput (
-	id VARCHAR(22) NOT NULL,
-    mood varchar(15) not null
-);
