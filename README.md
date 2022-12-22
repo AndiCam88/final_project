@@ -96,15 +96,35 @@ Due to size limitations of our GitHub repository, the entire file of 1.2M+ songs
 
 ## Dashboard
 
-### Data Visualization
+The [dashboard ](https://neuralburst.io/musicgroup)for the project was made with three key technologies:
 
-Visualization and dashboard are primarly produced through the [plotly](https://plotly.com) python libraries and [dash]([GitHub - plotly/dash: Analytical Web Apps for Python, R, Julia, and Jupyter. No JavaScript Required.](https://github.com/plotly/dash)). Dash is used for webpage interactivity and plotly as the backend for producing visualizations. The dashboard for the raw visualizer will be hosted at https://neuralburst.io/MusicGroup. 
+- React for the front end
+  
+- GoLang for the backend
+  
+- Websockets
+  
 
-The source for the visualization can be found at [final_project/Backend](https://github.com/AndiCam88/final_project/tree/main/Backend). There are three files (along with some css and javascript glue in the assets subfolder).
+The backend of the app is currently hosted at [Music Classifier](https://neuralburst.io/musicgroup) However, this could be changed to run on an app platform such as Google apps. We are using Golang and websockets for server-client communication for a few reasons including:
 
-- app.py controls the logic of the dashboard
-- page_layout.py controls the layout
-- visualizer_utilities.py are some helper functions, seperated out from the main logic app for clarity.
+1. Low server availability and specs at free tiers. We are serving a a medium sized database to a web-app that is expected to be responsive and snappy. While Python works fine, reducing the memory footprint and server response time ended up being important (that will be detailed below)
+  
+2. While networked communications bottleneck is is almost always the network itself, if we could shave some time off of the processing of the requests and backend communication with the network we can and should.
+  
+
+As part of this second point we went with websockets to further reduce the lag that comes with http handshaking process.
+
+The front end of the app was developed with a modern and functional React approach. This made iteration quick and easy. On the dashboard one of the first things you'll see is a guage with a search field. This search field is built with [ReactSearchAutocomplete](https://www.npmjs.com/package/react-search-autocomplete). While this component is very functional and useful it turns out to have a couple of issues that made it a square-peg in a round hole situation.
+
+The component will begin a search based on a supplied list of searchable items. However, if this search completes and we get the "no-results" popup our connection to query for items to add to search will go to a previously rendered component and never update.
+
+Due to this we hade to reduce network latency as much as possible, thus the aformentioned use of golang and websockets.
+
+The actual guage itself is just another configurable react component from [React-Gauge-Chart](https://www.npmjs.com/package/react-gauge-chart). We opted for this due to its more configurable and easy to use visuals instead of something from plotly or custom rolling a D3 chart.
+
+The next component is a representation of the 2-dimensional PCA breakdown of the groups that the sklearn algorithm generated. This was custom rolled by taking a high resolution image of the chart and tracing the colors in Gimp, to generate an SVG. We generated an svg path for each group and overlayed them on the dashboard. With some fancy javascript we generated the interactivity you can see.
+
+Finally we have the table which re-uses the websocket connection to fetch data from the server app thats communicating with our databases. While we wanted to add some filtering capability, unfortunantly there wasn't enough time with polishing everything else up.
   
 ### Interactivity
 
