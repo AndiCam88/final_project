@@ -193,7 +193,6 @@ export default function SongTable(props){
                 updatePage(pageNumber)
             }
         }
-        console.log(e.code)
     }
 
     return(

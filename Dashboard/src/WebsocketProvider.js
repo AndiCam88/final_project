@@ -8,6 +8,7 @@ const WebSocket = React.createContext({});
 export function WebsocketContextProvider(props){
     class ClassWS{
         callbacks = {}
+        timeoutStack = 0
 
         constructor() {
             // this.client= new W3CWebSocket('ws://127.0.0.1:1223');
@@ -31,7 +32,14 @@ export function WebsocketContextProvider(props){
 
         sendMessage(code, obj){
             if(this.client.readyState !== 1) {
-                setTimeout( () => {this.sendMessage(code,obj)}, 250)
+                this.timeoutStack += 1
+
+                if(this.timeoutStack > 10){
+                    // Handle error
+                    return
+                }
+
+                setTimeout( () => {this.sendMessage(code,obj)}, 250 + (1000*(this.timeoutStack - 1)))
                 return
             }
 
@@ -47,10 +55,6 @@ export function WebsocketContextProvider(props){
     };
 
     var ws = new ClassWS();
-
-
-    //const client = new W3CWebSocket('wss://neuralburst.io/musicsocket');
-
 
 
     setInterval(x=>{

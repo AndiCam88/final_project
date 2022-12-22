@@ -1,12 +1,10 @@
 There are a number of technologies we will be using to accomplish the goals of our project, to be documented here with rational.
 
-
-
 ## Analytics
 
 ### Language Choice
 
-We are going to the majority of transformation and details with Python and SQL. SQL will make for easy access and transformation of the data. Python being a primary subject of the bootcamp is familiar to all of us. Likewise it has a huge pleathora of libraries such as Scikit learn, Tensorflow, Numpy, Pandas and Sqlalchemy.
+We are going to the majority of transformation and details with Python and SQL. SQL will make for easy access and transformation of the data. Python being a primary subject of the bootcamp is familiar to all of us. Likewise it has a huge pleathora of libraries such as Scikit learn, Tensorflow, Numpy, Pandas and Sqlalchemy. For the dashboard we are using Javascript (React) and GoLang for the backend processing
 
 ## Databases
 
@@ -18,7 +16,7 @@ Finally, but keeping the data centralized in a high availability and simple to a
 
 ## Visualization
 
-Visualization right now is intended to be interactive as a webpage. This could be hosted either through github pages or directly from the server that the database and back-end is using.
+Visualization is by dashboard on a hosted react app at https://neuralburst.io/musicgroup
 
 ## Server Details
 
@@ -30,7 +28,7 @@ The server is hosted with an infrastructure as a service cloud provider. Close e
 
 ### Backend Processing
 
-We have setup a simple service that runs a flask app on a posix server. While its not entirely certain that it is needed at this time, having the groundwork done could come in handly later.
+We have setup a simple service that runs ago app on a posix server
 
 #### SFTP Access
 
@@ -80,31 +78,36 @@ Our service runs on nginx that has the following configuration to expose the app
     }
 ```
 
-### Restarting the backend service
-
-The backend service is spun up by systemd. If a member of the team irreparably, either through github actions and CI or by manually uploading a broken musicapp.py file we will need to manually restart the service.
-
-To accomplish this we are setting up another microservice who's purpose is to restart our main app if it goes into a permanently failed state.
-
-We are setting this up very similarly to our musicapp.py except we are setting up a simple restart command
-
-```
-from flask import Flask, render_template, request, redirect
-
-app = Flask(__name__)
-@app.route('/')
-def index():
-    return render_template('page.html')
-
-@app.route('/process',  methods=["GET", "POST"])
-def process():
-    # The code here has been obscured
-
-app.run(host='0.0.0.0', port=<port>)
 
 
-```
+## Dashboard
 
-The microservice takes a command and will issue a restart request to the systemd through the call function. While there is a dbus library, it doesn't currently work with the enviroment available to it.
+The dashboard for the project was made with three key technologies:
 
+- React for the front end
 
+- GoLang for the backend
+
+- Websockets
+
+The backend of the app is currently hosted at [Music Classifier](https://neuralburst.io/musicgroup) However, this could be changed to run on an app platform such as Google apps. We are using Golang and websockets for server-client communication for a few reasons including:
+
+1. Low server availability and specs at free tiers. We are serving a a medium sized database to a web-app that is expected to be responsive and snappy. While Python works fine, reducing the memory footprint and server response time ended up being important (that will be detailed below)
+
+2. While networked communications bottleneck is is almost always the network itself, if we could shave some time off of the processing of the requests and backend communication with the network we can and should.
+
+As part of this second point we went with websockets to further reduce the lag that comes with http handshaking process.
+
+The front end of the app was developed with a modern and functional React approach. This made iteration quick and easy. On the dashboard one of the first things you'll see is a guage with a search field. This search field is built with [ReactSearchAutocomplete](https://www.npmjs.com/package/react-search-autocomplete). While this component is very functional and useful it turns out to have a couple of issues that made it a square-peg in a round hole situation.
+
+The component will begin a search based on a supplied list of searchable items. However, if this search completes and we get the "no-results" popup our connection to query for items to add to search will go to a previously rendered component and never update.
+
+Due to this we hade to reduce network latency as much as possible, thus the aformentioned use of golang and websockets.
+
+The actual guage itself is just another configurable react component from [React-Gauge-Chart](https://www.npmjs.com/package/react-gauge-chart). We opted for this due to its more configurable and easy to use visuals instead of something from plotly or custom rolling a D3 chart.
+
+The next component is a representation of the 2-dimensional PCA breakdown of the groups that the sklearn algorithm generated. This was custom rolled by taking a high resolution image of the chart and tracing the colors in Gimp, to generate an SVG. We generated an svg path for each group and overlayed them on the dashboard. With some fancy javascript we generated the interactivity you can see.
+
+Finally we have the table which re-uses the websocket connection to fetch data from the server app thats communicating with our databases. While we wanted to add some filtering capability, unfortunantly there wasn't enough time with polishing everything else up.
+
+There are some lingering issues both in terms of design choice, reactive css, taking a stronger approach to filtering data through the websocket, but overall the dashboard does a decent job at presenting the data.

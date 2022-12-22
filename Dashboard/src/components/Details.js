@@ -5,7 +5,6 @@ import {mapcolor} from "./Groupnames";
 
 
 function DetailsMeanTable(props){
-    console.log()
     return(
         <div className={"detailsTable"}>
             <table style={{textAlign:"left"}}>

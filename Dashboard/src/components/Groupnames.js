@@ -10,17 +10,17 @@ export default function mapname(n){
         case -1:
             return ""
         case 0:
-            return "Sad"
+            return "Laid-Back"
         case 1:
-            return "Calm"
-        case 2:
             return "Energetic"
+        case 2:
+            return "Sad"
         case 3:
             return "Happy"
         case 4:
-            return "Group 5"
+            return "Calm"
         case 5:
-            return "Group 6"
+            return "Angry"
     }
     return ""
 }

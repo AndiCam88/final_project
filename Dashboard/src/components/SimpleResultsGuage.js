@@ -3,7 +3,7 @@ import {useWebsocketContext} from "../WebsocketProvider";
 import {ReactSearchAutocomplete} from "react-search-autocomplete";
 import GaugeChart from 'react-gauge-chart'
 import VerticalSpacer from "./VerticalSpacer";
-import mapname from "./Groupnames";
+import mapname, {mapcolor} from "./Groupnames";
 
 
 function Filter(props){
@@ -81,12 +81,13 @@ export default function SimpleResults(props){
     const [group_number, setGroup] = React.useState(-1);
 
 
-    const color_group0 = 'red'
-    const color_group1 = 'orange'
-    const color_group2 = 'blue'
-    const color_group3 = 'purple'
-    const color_group4 = 'green'
-    const color_group5 = 'brown'
+    // Todo use color mapper
+    const color_group0 = mapcolor(0)
+    const color_group1 = mapcolor(1)
+    const color_group2 = mapcolor(2)
+    const color_group3 = mapcolor(3)
+    const color_group4 = mapcolor(4)
+    const color_group5 = mapcolor(5)
     var text_color = '#212529'
 
     if(group_number === 1) text_color = color_group0;
